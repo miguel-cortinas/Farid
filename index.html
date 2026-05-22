@@ -395,23 +395,64 @@
 
         .hero-name {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2.8rem, 10vw, 6rem);
+            font-size: clamp(3.6rem, 14vw, 8.5rem);
             font-weight: 900;
-            line-height: 0.95;
+            line-height: 0.92;
             color: #fff;
-            letter-spacing: -1px;
-            text-shadow: 0 0 60px rgba(168, 139, 250, 0.6), 0 0 120px rgba(124, 58, 237, 0.3);
+            letter-spacing: -2px;
+            text-shadow:
+                0 0 20px rgba(255, 255, 255, 0.9),
+                0 0 60px rgba(168, 139, 250, 0.85),
+                0 0 120px rgba(124, 58, 237, 0.7),
+                0 0 200px rgba(124, 58, 237, 0.4),
+                0 0 300px rgba(76, 29, 149, 0.3);
             opacity: 0;
             animation: fadeUp 0.8s ease forwards 0.55s;
         }
 
+        /* Pulsing glow behind hero name */
+        .hero-name-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 300px;
+            background: radial-gradient(ellipse at center,
+                rgba(124, 58, 237, 0.35) 0%,
+                rgba(76, 29, 149, 0.2) 35%,
+                transparent 70%);
+            filter: blur(30px);
+            pointer-events: none;
+            animation: glowPulse 3s ease-in-out infinite;
+            z-index: 2;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+        }
+
+        .hero-eyebrow {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 7px;
+            color: var(--cyan);
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.3s;
+            text-shadow: 0 0 15px var(--cyan);
+        }
+
         .hero-mission {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(0.7rem, 2.5vw, 1rem);
+            font-size: clamp(0.75rem, 2.8vw, 1.1rem);
             font-weight: 400;
-            color: rgba(255, 255, 255, 0.55);
-            letter-spacing: 4px;
-            margin-top: 14px;
+            color: rgba(255, 255, 255, 0.65);
+            letter-spacing: 6px;
+            margin-top: 18px;
             text-transform: uppercase;
             opacity: 0;
             animation: fadeUp 0.8s ease forwards 0.8s;
@@ -420,36 +461,95 @@
         .hero-orbit-badge {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            background: rgba(124, 58, 237, 0.18);
-            border: 1px solid rgba(168, 139, 250, 0.35);
+            gap: 12px;
+            background: rgba(124, 58, 237, 0.2);
+            border: 1px solid rgba(168, 139, 250, 0.45);
             border-radius: 100px;
-            padding: 10px 24px;
-            margin-top: 28px;
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.8);
+            padding: 13px 32px;
+            margin-top: 36px;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.85);
             letter-spacing: 1px;
             opacity: 0;
             animation: fadeUp 0.8s ease forwards 1s;
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.2), inset 0 0 20px rgba(124, 58, 237, 0.05);
         }
 
         .hero-orbit-badge span {
             color: var(--gold);
             font-family: 'Orbitron', sans-serif;
             font-weight: 700;
+            font-size: 1.1rem;
+            text-shadow: 0 0 15px var(--gold);
+        }
+
+        /* Extra hero decorations */
+        .hero-star-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            border: 1px solid rgba(124, 58, 237, 0.12);
+            pointer-events: none;
+            animation: spinRing 30s linear infinite;
+            z-index: 2;
+        }
+
+        .hero-star-ring::before {
+            content: '★';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--gold);
+            font-size: 14px;
+            text-shadow: 0 0 10px var(--gold);
+        }
+
+        .hero-star-ring-2 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            border: 1px solid rgba(6, 182, 212, 0.07);
+            pointer-events: none;
+            animation: spinRing 50s linear infinite reverse;
+            z-index: 2;
+        }
+
+        .hero-star-ring-2::before {
+            content: '✦';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--cyan);
+            font-size: 12px;
+            text-shadow: 0 0 10px var(--cyan);
+        }
+
+        @keyframes spinRing {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
         /* Scroll indicator */
         .scroll-indicator {
             position: absolute;
-            bottom: 36px;
+            bottom: 28px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
-            z-index: 3;
+            gap: 10px;
+            z-index: 10;
             opacity: 0;
             animation: fadeIn 1s ease forwards 1.6s;
         }
@@ -460,15 +560,17 @@
             letter-spacing: 4px;
             color: var(--cyan);
             text-transform: uppercase;
+            text-shadow: 0 0 10px var(--cyan);
         }
 
         .scroll-arrow {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             border-right: 2px solid var(--cyan);
             border-bottom: 2px solid var(--cyan);
             transform: rotate(45deg);
             animation: bounceDown 1.4s ease-in-out infinite;
+            filter: drop-shadow(0 0 6px var(--cyan));
         }
 
         @keyframes bounceDown {
@@ -480,7 +582,7 @@
             }
 
             50% {
-                transform: rotate(45deg) translateY(6px);
+                transform: rotate(45deg) translateY(8px);
                 opacity: 0.4;
             }
         }
@@ -1219,7 +1321,15 @@
         <div class="hero-satelite" aria-hidden="true"></div>
         <div class="hero-earth" aria-hidden="true"></div>
 
+        <!-- Decorative rings -->
+        <div class="hero-star-ring" aria-hidden="true"></div>
+        <div class="hero-star-ring-2" aria-hidden="true"></div>
+
+        <!-- Glow backdrop -->
+        <div class="hero-name-glow" aria-hidden="true"></div>
+
         <div class="hero-content">
+            <p class="hero-eyebrow">⬡ Misión Año Uno ⬡</p>
             <h1 class="hero-name">FARID<br>GABRIEL</h1>
             <p class="hero-mission">Primer Año de Órbita</p>
             <div class="hero-orbit-badge">
@@ -1279,7 +1389,7 @@
                         </svg>
                     </div>
                     <span class="param-label">Fecha de Lanzamiento</span>
-                    <div class="param-value">Sábado<br>14 de Junio, 2026</div>
+                    <div class="param-value">Sábado<br>13 de Junio, 2026</div>
                 </div>
 
                 <div class="mission-param reveal reveal-delay-2">
@@ -1291,7 +1401,7 @@
                         </svg>
                     </div>
                     <span class="param-label">Hora de Inicio</span>
-                    <div class="param-value">4:00 PM<br>en adelante</div>
+                    <div class="param-value">3:00 PM<br>en adelante</div>
                 </div>
 
                 <div class="mission-param reveal reveal-delay-3">
@@ -1303,7 +1413,7 @@
                         </svg>
                     </div>
                     <span class="param-label">Base de Operaciones</span>
-                    <div class="param-value">Salón Estelar<br>Calle Las Galaxias #42</div>
+                    <div class="param-value">Granja Mar<br><span style="font-size:0.85rem; color: rgba(232,234,246,0.5);">Ubicación próximamente</span></div>
                 </div>
 
                 <div class="mission-param reveal reveal-delay-4">
@@ -1335,32 +1445,11 @@
             </div>
 
             <div class="protocol-list">
-                <div class="protocol-item reveal reveal-delay-1">
-                    <div class="protocol-num">01</div>
+                <div class="protocol-item reveal reveal-delay-1" style="border-color: rgba(6,182,212,0.25); background: rgba(6,182,212,0.05);">
+                    <div class="protocol-num" style="color: var(--cyan); background: rgba(6,182,212,0.12); border-color: rgba(6,182,212,0.25); font-size: 1.4rem;">🩱</div>
                     <div class="protocol-text">
-                        <strong>Traje de baño listo</strong>
-                        Recuerda traer tu equipo de hidratación interestelar para las actividades acuáticas
-                    </div>
-                </div>
-                <div class="protocol-item reveal reveal-delay-2">
-                    <div class="protocol-num">02</div>
-                    <div class="protocol-text">
-                        <strong>Tu presencia es suficiente</strong>
-                        El mejor regalo ya viaja contigo: tu compañía vale más que cualquier galaxia
-                    </div>
-                </div>
-                <div class="protocol-item reveal reveal-delay-3">
-                    <div class="protocol-num">03</div>
-                    <div class="protocol-text">
-                        <strong>Código de vestimenta</strong>
-                        Colores del universo — azul, violeta, dorado, negro espacial
-                    </div>
-                </div>
-                <div class="protocol-item reveal reveal-delay-4">
-                    <div class="protocol-num">04</div>
-                    <div class="protocol-text">
-                        <strong>Pastel estelar incluido</strong>
-                        El menú intergaláctico está preparado — ¡no llegues sin apetito!
+                        <strong>¡No olvides tu traje de baño!</strong>
+                        Habrá actividades acuáticas — trae tu equipo de hidratación interestelar listo para la misión.
                     </div>
                 </div>
             </div>
@@ -1513,13 +1602,14 @@
         })();
 
         /* ──────────────────────────────────────────────
-           3. WARP / LAUNCH BUTTON
+           3. HYPERSPACE JUMP / LAUNCH BUTTON
         ────────────────────────────────────────────── */
         document.getElementById('launch-btn').addEventListener('click', function () {
             const overlay = document.getElementById('warp-overlay');
             const warpCanvas = document.getElementById('warp-canvas');
             const launchScreen = document.getElementById('launch-screen');
             const wCtx = warpCanvas.getContext('2d');
+            const btn = this;
 
             warpCanvas.width = window.innerWidth;
             warpCanvas.height = window.innerHeight;
@@ -1527,70 +1617,160 @@
             const cx = warpCanvas.width / 2;
             const cy = warpCanvas.height / 2;
 
-            // Phase 1: draw warp lines
-            warpCanvas.style.opacity = '1';
-            let lines = Array.from({ length: 200 }, () => {
-                const angle = Math.random() * Math.PI * 2;
-                return { angle, len: 0, maxLen: 200 + Math.random() * 500, speed: 18 + Math.random() * 28, alpha: 0.6 + Math.random() * 0.4 };
-            });
+            // === PHASE 0: Button shake + glow pulse ===
+            btn.style.transition = 'transform 0.05s, box-shadow 0.05s';
+            let shakeCount = 0;
+            const shakeInterval = setInterval(() => {
+                const dx = (Math.random() - 0.5) * 8;
+                const dy = (Math.random() - 0.5) * 8;
+                btn.style.transform = `translate(${dx}px, ${dy}px) scale(1.05)`;
+                btn.style.boxShadow = `0 0 0 16px rgba(220,38,38,0.3), 0 0 60px rgba(220,38,38,0.8), 0 0 120px rgba(255,100,100,0.5)`;
+                shakeCount++;
+                if (shakeCount > 14) {
+                    clearInterval(shakeInterval);
+                    btn.style.transform = 'scale(0)';
+                    btn.style.transition = 'transform 0.3s ease-in';
+                    startHyperspaceJump();
+                }
+            }, 60);
 
-            let startTime = null;
-            const WARP_DURATION = 900; // ms
+            function startHyperspaceJump() {
+                // === PHASE 1: Tunnel zoom — hyperdrive lines converge, then BLAST ===
+                warpCanvas.style.opacity = '1';
 
-            function animateWarp(ts) {
-                if (!startTime) startTime = ts;
-                const elapsed = ts - startTime;
-                const progress = Math.min(elapsed / WARP_DURATION, 1);
-
-                wCtx.clearRect(0, 0, warpCanvas.width, warpCanvas.height);
-                wCtx.fillStyle = `rgba(3,2,13,${progress * 0.85})`;
-                wCtx.fillRect(0, 0, warpCanvas.width, warpCanvas.height);
-
-                lines.forEach(l => {
-                    l.len = Math.min(l.len + l.speed * (1 + progress * 5), l.maxLen);
-                    const sx = cx + Math.cos(l.angle) * (l.len * 0.1);
-                    const ex = cx + Math.cos(l.angle) * l.len;
-                    const sy = cy + Math.sin(l.angle) * (l.len * 0.1);
-                    const ey = cy + Math.sin(l.angle) * l.len;
-
-                    const grad = wCtx.createLinearGradient(sx, sy, ex, ey);
-                    grad.addColorStop(0, `rgba(168,139,250,0)`);
-                    grad.addColorStop(0.5, `rgba(168,139,250,${l.alpha * 0.6})`);
-                    grad.addColorStop(1, `rgba(255,255,255,${l.alpha})`);
-
-                    wCtx.beginPath();
-                    wCtx.moveTo(sx, sy);
-                    wCtx.lineTo(ex, ey);
-                    wCtx.strokeStyle = grad;
-                    wCtx.lineWidth = 1.2;
-                    wCtx.globalAlpha = l.alpha;
-                    wCtx.stroke();
-                    wCtx.globalAlpha = 1;
+                // Two sets: converging inner lines + explosive outer streaks
+                const innerLines = Array.from({ length: 160 }, () => {
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = 6 + Math.random() * 10;
+                    return {
+                        angle,
+                        len: 0,
+                        startLen: Math.random() * 30,
+                        maxLen: 80 + Math.random() * 180,
+                        speed,
+                        alpha: 0.4 + Math.random() * 0.5,
+                        hue: Math.random() < 0.5 ? '168,139,250' : '6,182,212'
+                    };
                 });
 
-                if (progress < 1) {
-                    requestAnimationFrame(animateWarp);
-                } else {
-                    // Phase 2: flash white then reveal
-                    overlay.style.transition = 'opacity 0.3s ease';
-                    overlay.style.opacity = '1';
-                    setTimeout(() => {
-                        overlay.style.transition = 'opacity 0.6s ease';
-                        overlay.style.opacity = '0';
-                        warpCanvas.style.opacity = '0';
-                        launchScreen.style.transition = 'opacity 0.5s ease';
-                        launchScreen.style.opacity = '0';
+                const outerStreaks = Array.from({ length: 220 }, () => {
+                    const angle = Math.random() * Math.PI * 2;
+                    return {
+                        angle,
+                        len: 0,
+                        maxLen: 300 + Math.random() * 800,
+                        speed: 28 + Math.random() * 60,
+                        width: 0.5 + Math.random() * 2,
+                        alpha: 0.5 + Math.random() * 0.5
+                    };
+                });
+
+                let startTime = null;
+                const WARP_DURATION = 1200;
+
+                function animateWarp(ts) {
+                    if (!startTime) startTime = ts;
+                    const elapsed = ts - startTime;
+                    const progress = Math.min(elapsed / WARP_DURATION, 1);
+
+                    // Ease-in acceleration curve
+                    const eased = progress < 0.5
+                        ? 2 * progress * progress
+                        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+                    wCtx.clearRect(0, 0, warpCanvas.width, warpCanvas.height);
+
+                    // Deep space bg that darkens then flares
+                    const bgAlpha = progress < 0.7 ? progress * 0.9 : 0.95;
+                    wCtx.fillStyle = `rgba(3,2,13,${bgAlpha})`;
+                    wCtx.fillRect(0, 0, warpCanvas.width, warpCanvas.height);
+
+                    // Central energy bloom
+                    if (progress > 0.3) {
+                        const bloomSize = (progress - 0.3) * 500 * eased;
+                        const bloomAlpha = Math.sin(progress * Math.PI) * 0.6;
+                        const grd = wCtx.createRadialGradient(cx, cy, 0, cx, cy, bloomSize);
+                        grd.addColorStop(0, `rgba(255,255,255,${bloomAlpha})`);
+                        grd.addColorStop(0.2, `rgba(168,139,250,${bloomAlpha * 0.7})`);
+                        grd.addColorStop(0.5, `rgba(76,29,149,${bloomAlpha * 0.3})`);
+                        grd.addColorStop(1, 'rgba(0,0,0,0)');
+                        wCtx.fillStyle = grd;
+                        wCtx.fillRect(0, 0, warpCanvas.width, warpCanvas.height);
+                    }
+
+                    // Inner converging tunnel lines
+                    innerLines.forEach(l => {
+                        if (progress < 0.65) {
+                            l.len = Math.min(l.len + l.speed * (1 + eased * 4), l.maxLen);
+                            const startR = l.startLen + l.len * 0.05;
+                            const endR = l.startLen + l.len;
+                            const sx = cx + Math.cos(l.angle) * startR;
+                            const ex = cx + Math.cos(l.angle) * endR;
+                            const sy = cy + Math.sin(l.angle) * startR;
+                            const ey = cy + Math.sin(l.angle) * endR;
+
+                            const grad = wCtx.createLinearGradient(sx, sy, ex, ey);
+                            grad.addColorStop(0, `rgba(${l.hue},0)`);
+                            grad.addColorStop(0.6, `rgba(${l.hue},${l.alpha * 0.5})`);
+                            grad.addColorStop(1, `rgba(${l.hue},${l.alpha})`);
+
+                            wCtx.beginPath();
+                            wCtx.moveTo(sx, sy);
+                            wCtx.lineTo(ex, ey);
+                            wCtx.strokeStyle = grad;
+                            wCtx.lineWidth = 1;
+                            wCtx.globalAlpha = l.alpha * (1 - progress / 0.65);
+                            wCtx.stroke();
+                            wCtx.globalAlpha = 1;
+                        }
+                    });
+
+                    // Explosive outer streaks (kick in after 40%)
+                    if (progress > 0.4) {
+                        const streakProgress = (progress - 0.4) / 0.6;
+                        outerStreaks.forEach(l => {
+                            l.len = Math.min(l.len + l.speed * (1 + streakProgress * 8), l.maxLen);
+                            const sx = cx + Math.cos(l.angle) * (l.len * 0.05);
+                            const ex = cx + Math.cos(l.angle) * l.len;
+                            const sy = cy + Math.sin(l.angle) * (l.len * 0.05);
+                            const ey = cy + Math.sin(l.angle) * l.len;
+
+                            const grad = wCtx.createLinearGradient(sx, sy, ex, ey);
+                            grad.addColorStop(0, `rgba(255,255,255,0)`);
+                            grad.addColorStop(0.3, `rgba(200,180,255,${l.alpha * streakProgress * 0.4})`);
+                            grad.addColorStop(1, `rgba(255,255,255,${l.alpha * streakProgress})`);
+
+                            wCtx.beginPath();
+                            wCtx.moveTo(sx, sy);
+                            wCtx.lineTo(ex, ey);
+                            wCtx.strokeStyle = grad;
+                            wCtx.lineWidth = l.width;
+                            wCtx.globalAlpha = streakProgress;
+                            wCtx.stroke();
+                            wCtx.globalAlpha = 1;
+                        });
+                    }
+
+                    if (progress < 1) {
+                        requestAnimationFrame(animateWarp);
+                    } else {
+                        // === PHASE 2: Nuclear white flash then reveal ===
+                        overlay.style.transition = 'opacity 0.15s ease-out';
+                        overlay.style.opacity = '1';
                         setTimeout(() => {
                             launchScreen.style.display = 'none';
+                            warpCanvas.style.opacity = '0';
+                            overlay.style.transition = 'opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                            overlay.style.opacity = '0';
                             document.body.style.overflow = 'auto';
                             triggerReveal();
-                        }, 500);
-                    }, 220);
+                        }, 120);
+                    }
                 }
-            }
 
-            requestAnimationFrame(animateWarp);
-            document.body.style.overflow = 'hidden';
+                requestAnimationFrame(animateWarp);
+                document.body.style.overflow = 'hidden';
+            }
         });
 
         /* ──────────────────────────────────────────────
