@@ -245,6 +245,10 @@
             height: 120px;
             border-radius: 50%;
             border: none;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-appearance: none;
+            user-select: none;
             cursor: pointer;
             background: radial-gradient(circle at 35% 35%, #ff6060, #dc2626 50%, #7f1d1d);
             box-shadow: 0 0 0 8px rgba(220, 38, 38, 0.15),
@@ -257,6 +261,14 @@
             display: block;
         }
 
+        #launch-btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 8px rgba(220, 38, 38, 0.15),
+                0 0 0 16px rgba(220, 38, 38, 0.08),
+                0 8px 32px rgba(220, 38, 38, 0.5),
+                inset 0 -4px 8px rgba(0, 0, 0, 0.4);
+        }
+
         #launch-btn::after {
             content: '🚀';
             font-size: 38px;
@@ -264,6 +276,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            pointer-events: none;
         }
 
         /* hover removed — mobile/touch only */
@@ -542,7 +555,7 @@
         /* Scroll indicator */
         .scroll-indicator {
             position: absolute;
-            bottom: 28px;
+            bottom: max(48px, env(safe-area-inset-bottom, 0px) + 48px);
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -552,6 +565,7 @@
             z-index: 10;
             opacity: 0;
             animation: fadeIn 1s ease forwards 1.6s;
+            padding-bottom: 8px;
         }
 
         .scroll-label {
