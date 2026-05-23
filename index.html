@@ -1152,6 +1152,184 @@
         }
 
         /* ===================================================
+           ── GALERÍA ESTELAR (CARRUSEL) ──
+        =================================================== */
+        #galeria {
+            padding: 80px 0 100px;
+            position: relative;
+        }
+
+        .galeria-heading {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.4rem, 4vw, 2.2rem);
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .galeria-intro {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 52px;
+        }
+
+        .carousel-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .carousel-track-wrapper {
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            display: flex;
+            gap: 20px;
+            padding: 20px 0;
+            mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+        }
+
+        .carousel-track-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .carousel-slide {
+            flex: 0 0 calc(100% - 10px);
+            scroll-snap-align: center;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            height: 55vh;
+            max-height: 450px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(124, 58, 237, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        @media (min-width: 768px) {
+            .carousel-slide {
+                flex: 0 0 calc(50% - 10px);
+                height: 450px;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .carousel-slide {
+                flex: 0 0 calc(33.333% - 13.333px);
+                height: 400px;
+            }
+        }
+
+        .carousel-slide img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+            border-radius: 12px;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-slide:hover img {
+            transform: scale(1.05);
+        }
+
+        .carousel-nav-btn {
+            position: absolute;
+            top: calc(50% - 12px);
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(10, 8, 30, 0.7);
+            border: 1px solid rgba(124, 58, 237, 0.5);
+            color: var(--cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+            transition: background 0.3s, box-shadow 0.3s, color 0.3s, transform 0.2s;
+        }
+
+        .carousel-nav-btn:hover {
+            background: rgba(124, 58, 237, 0.4);
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.6);
+            color: #fff;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-nav-btn:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .carousel-nav-btn.prev {
+            left: 4px;
+        }
+
+        .carousel-nav-btn.next {
+            right: 4px;
+        }
+
+        .carousel-nav-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .indicator {
+            width: 24px;
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: background 0.3s, width 0.3s, box-shadow 0.3s;
+        }
+
+        .indicator.active {
+            background: var(--cyan);
+            width: 40px;
+            box-shadow: 0 0 10px var(--cyan);
+        }
+
+        @media (max-width: 767px) {
+            .carousel-nav-btn {
+                width: 40px;
+                height: 40px;
+            }
+            .carousel-nav-btn.prev {
+                left: 12px;
+            }
+            .carousel-nav-btn.next {
+                right: 12px;
+            }
+            .carousel-track-wrapper {
+                mask-image: none;
+                -webkit-mask-image: none;
+            }
+        }
+
+        /* ===================================================
            RESPONSIVE — Mobile first
         =================================================== */
 
@@ -1543,6 +1721,56 @@
     <div class="hud-divider"></div>
 
     <!-- ========================================================
+     GALERÍA ESTELAR
+======================================================== -->
+    <section id="galeria" aria-label="Galería de fotos">
+        <div class="section-inner">
+            <div class="reveal">
+                <div class="section-tag" style="color:var(--gold);">Registros Visuales</div>
+                <h2 class="galeria-heading">Momentos de la Misión</h2>
+                <p class="galeria-intro">Desliza para explorar los momentos estelares de nuestra tripulación.</p>
+            </div>
+        </div>
+
+        <div class="carousel-container reveal reveal-delay-1">
+            <button class="carousel-nav-btn prev" aria-label="Anterior">
+                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+
+            <div class="carousel-track-wrapper" id="carousel-track">
+                <div class="carousel-slide">
+                    <img src="galeria/1.jpeg" alt="Momento estelar 1" loading="lazy">
+                </div>
+                <div class="carousel-slide">
+                    <img src="galeria/2.jpeg" alt="Momento estelar 2" loading="lazy">
+                </div>
+                <div class="carousel-slide">
+                    <img src="galeria/3.jpeg" alt="Momento estelar 3" loading="lazy">
+                </div>
+                <div class="carousel-slide">
+                    <img src="galeria/4.jpeg" alt="Momento estelar 4" loading="lazy">
+                </div>
+                <div class="carousel-slide">
+                    <img src="galeria/5.jpeg" alt="Momento estelar 5" loading="lazy">
+                </div>
+                <div class="carousel-slide">
+                    <img src="galeria/6.jpeg" alt="Momento estelar 6" loading="lazy">
+                </div>
+            </div>
+
+            <button class="carousel-nav-btn next" aria-label="Siguiente">
+                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+
+            <div class="carousel-indicators" id="carousel-indicators">
+                <!-- Generados por JS -->
+            </div>
+        </div>
+    </section>
+
+    <div class="hud-divider"></div>
+
+    <!-- ========================================================
      CONFIRMACIÓN
 ======================================================== -->
     <section id="confirmar" aria-label="Confirmación de asistencia">
@@ -1850,8 +2078,65 @@
             const c = document.getElementById('stars-canvas');
             c.height = document.body.scrollHeight;
         });
-    </script>
+        /* ──────────────────────────────────────────────
+           5. CAROUSEL
+        ────────────────────────────────────────────── */
+        (function() {
+            const track = document.getElementById('carousel-track');
+            if (!track) return;
+            const prevBtn = document.querySelector('.carousel-nav-btn.prev');
+            const nextBtn = document.querySelector('.carousel-nav-btn.next');
+            const indicatorsContainer = document.getElementById('carousel-indicators');
+            const slides = track.querySelectorAll('.carousel-slide');
+            
+            if (slides.length === 0) return;
 
+            // Generar indicadores dinámicamente
+            slides.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.classList.add('indicator');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => {
+                    scrollToSlide(i);
+                });
+                indicatorsContainer.appendChild(dot);
+            });
+
+            const indicators = document.querySelectorAll('.indicator');
+
+            function updateIndicators() {
+                const scrollLeft = track.scrollLeft;
+                const slideWidth = slides[0].offsetWidth + 20; // 20px gap
+                const index = Math.round(scrollLeft / slideWidth);
+                
+                indicators.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+            }
+
+            function scrollToSlide(index) {
+                const slideWidth = slides[0].offsetWidth + 20;
+                track.scrollTo({
+                    left: index * slideWidth,
+                    behavior: 'smooth'
+                });
+            }
+
+            prevBtn.addEventListener('click', () => {
+                const slideWidth = slides[0].offsetWidth + 20;
+                track.scrollBy({ left: -slideWidth, behavior: 'smooth' });
+            });
+
+            nextBtn.addEventListener('click', () => {
+                const slideWidth = slides[0].offsetWidth + 20;
+                track.scrollBy({ left: slideWidth, behavior: 'smooth' });
+            });
+
+            track.addEventListener('scroll', () => {
+                requestAnimationFrame(updateIndicators);
+            });
+        })();
+    </script>
 </body>
 
 </html>
