@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#03020d" />
     <title>Farid Gabriel — Primer Año de Órbita</title>
     <meta name="description"
         content="¡Farid Gabriel completa su primera órbita! Te invitamos a celebrar este lanzamiento especial." />
@@ -47,6 +49,7 @@
         }
 
         :root {
+            color-scheme: dark;
             --space-black: #03020d;
             --deep-navy: #080820;
             --nebula-purple: #4a2480;
@@ -63,10 +66,11 @@
 
         html {
             scroll-behavior: smooth;
+            background-color: var(--space-black);
         }
 
         body {
-            background: var(--space-black);
+            background-color: var(--space-black);
             color: var(--star-white);
             font-family: 'Exo 2', sans-serif;
             font-weight: 300;
