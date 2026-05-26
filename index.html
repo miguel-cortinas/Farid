@@ -412,6 +412,19 @@
             }
         }
 
+        /* Nebulosa sutil en el hero */
+        #hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse 55% 40% at 15% 25%, rgba(220, 80, 180, 0.13) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 35% at 88% 18%, rgba(80, 120, 255, 0.1) 0%, transparent 65%),
+                radial-gradient(ellipse 30% 25% at 72% 70%, rgba(124, 58, 237, 0.1) 0%, transparent 60%);
+        }
+
         /* Hero text */
         .hero-content {
             position: relative;
@@ -514,7 +527,7 @@
             border: 1px solid rgba(168, 139, 250, 0.45);
             border-radius: 100px;
             padding: 13px 32px;
-            margin-top: 36px;
+            margin-top: 20px;
             font-size: 0.95rem;
             color: rgba(255, 255, 255, 0.85);
             letter-spacing: 1px;
@@ -1806,7 +1819,6 @@
         <div class="hero-content">
             <p class="hero-eyebrow">⬡ Misión Año Uno ⬡</p>
             <h1 class="hero-name">FARID<br>GABRIEL</h1>
-            <p class="hero-mission">Primer Año de Órbita</p>
             <div class="hero-orbit-badge">
                 <span>01</span> vuelta completa alrededor del sol
             </div>
