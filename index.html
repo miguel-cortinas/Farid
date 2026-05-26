@@ -132,7 +132,7 @@
             }
         }
 
-        /* Panel */
+        /* Panel entrada animada */
         .launch-panel {
             position: relative;
             z-index: 2;
@@ -144,6 +144,24 @@
             text-align: center;
             box-shadow: 0 0 60px rgba(124, 58, 237, 0.25), inset 0 0 60px rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(12px);
+            opacity: 0;
+            transform: translateY(32px) scale(0.97);
+            animation: panelEntrada 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+        }
+
+        @keyframes panelEntrada {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Botón bloqueado mientras se inicializa */
+        #launch-btn.locked {
+            opacity: 0.4;
+            cursor: not-allowed;
+            animation: none;
+            pointer-events: none;
         }
 
         /* Top status lights */
@@ -291,10 +309,10 @@
         }
 
         #launch-btn::after {
-            content: 'PUSH';
+            content: 'INICIAR';
             font-family: 'Orbitron', sans-serif;
             font-weight: 800;
-            font-size: 26px;
+            font-size: 18px;
             color: #fff;
             letter-spacing: 2px;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
@@ -1767,24 +1785,24 @@
             <div class="panel-readouts">
                 <div class="readout">
                     <span class="readout-label">COMBUSTIBLE</span>
-                    <span class="readout-value">100% ██████</span>
+                    <span class="readout-value" id="rd-combustible">···</span>
                 </div>
                 <div class="readout">
                     <span class="readout-label">NAVEGACIÓN</span>
-                    <span class="readout-value">LISTA ✓</span>
+                    <span class="readout-value" id="rd-navegacion">···</span>
                 </div>
                 <div class="readout">
                     <span class="readout-label">TRIPULACIÓN</span>
-                    <span class="readout-value">ABORDO ✓</span>
+                    <span class="readout-value" id="rd-tripulacion">···</span>
                 </div>
                 <div class="readout">
                     <span class="readout-label">SISTEMA</span>
-                    <span class="readout-value">GO ✓</span>
+                    <span class="readout-value" id="rd-sistema">···</span>
                 </div>
             </div>
 
-            <button id="launch-btn" aria-label="Iniciar misión"></button>
-            <p class="launch-hint">PRESIONA PARA INICIAR</p>
+            <button id="launch-btn" class="locked" aria-label="Iniciar misión"></button>
+            <p class="launch-hint" id="launch-hint">INICIALIZANDO...</p>
         </div>
     </div>
 
@@ -2271,6 +2289,46 @@
         })();
 
         /* ──────────────────────────────────────────────
+           2b. SECUENCIA DE INICIALIZACIÓN
+        ────────────────────────────────────────────── */
+        (function () {
+            // Simula el "booteo" de los readouts uno a uno
+            const steps = [
+                { id: 'rd-combustible', frames: ['▓░░░░░ 0%', '▓▓░░░░ 30%', '▓▓▓▓░░ 65%', '▓▓▓▓▓▓ 100%'], final: '100% ██████', delay: 800 },
+                { id: 'rd-navegacion', frames: ['ESCANEANDO·', 'ESCANEANDO··', 'ESCANEANDO···'], final: 'LISTA ✓', delay: 1600 },
+                { id: 'rd-tripulacion', frames: ['1 DETECTADO', '2 DETECTADO', '3+ ABORDO'], final: 'ABORDO ✓', delay: 2400 },
+                { id: 'rd-sistema', frames: ['VERIFICANDO·', 'VERIFICANDO··', 'OK ···'], final: 'GO ✓', delay: 3200 },
+            ];
+
+            steps.forEach(({ id, frames, final, delay }) => {
+                setTimeout(() => {
+                    const el = document.getElementById(id);
+                    if (!el) return;
+                    let i = 0;
+                    const iv = setInterval(() => {
+                        el.textContent = frames[i % frames.length];
+                        i++;
+                        if (i >= frames.length) {
+                            clearInterval(iv);
+                            el.textContent = final;
+                        }
+                    }, 220);
+                }, delay);
+            });
+
+            // Cuando todos terminan, desbloquea el botón
+            setTimeout(() => {
+                const btn = document.getElementById('launch-btn');
+                const hint = document.getElementById('launch-hint');
+                if (btn) {
+                    btn.classList.remove('locked');
+                    btn.style.transition = 'opacity 0.5s ease';
+                }
+                if (hint) hint.textContent = 'PRESIONA PARA INICIAR';
+            }, 3200 + 900);
+        })();
+
+        /* ──────────────────────────────────────────────
            3. HYPERSPACE JUMP / LAUNCH BUTTON
         ────────────────────────────────────────────── */
         document.getElementById('launch-btn').addEventListener('click', function () {
@@ -2279,6 +2337,9 @@
             const launchScreen = document.getElementById('launch-screen');
             const wCtx = warpCanvas.getContext('2d');
             const btn = this;
+
+            // Vibración táctil inmediata (móvil)
+            if (navigator.vibrate) navigator.vibrate([40, 30, 80]);
 
             // Iniciar audio
             const bgAudio = document.getElementById('bg-audio');
@@ -2442,14 +2503,19 @@
                         overlay.style.transition = 'opacity 0.15s ease-out';
                         overlay.style.opacity = '1';
                         setTimeout(() => {
-                            launchScreen.style.display = 'none';
-                            warpCanvas.style.opacity = '0';
-                            overlay.style.transition = 'opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                            overlay.style.opacity = '0';
-                            document.body.style.overflow = 'auto';
-                            const audioControls = document.getElementById('audio-controls');
-                            if (audioControls) audioControls.classList.remove('hidden');
-                            triggerReveal();
+                            // Fade suave del launch screen antes de ocultarlo
+                            launchScreen.style.transition = 'opacity 0.25s ease-out';
+                            launchScreen.style.opacity = '0';
+                            setTimeout(() => {
+                                launchScreen.style.display = 'none';
+                                warpCanvas.style.opacity = '0';
+                                overlay.style.transition = 'opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                                overlay.style.opacity = '0';
+                                document.body.style.overflow = 'auto';
+                                const audioControls = document.getElementById('audio-controls');
+                                if (audioControls) audioControls.classList.remove('hidden');
+                                triggerReveal();
+                            }, 260);
                         }, 120);
                     }
                 }
