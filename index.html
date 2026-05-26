@@ -360,8 +360,8 @@
             height: 100vh;
             min-height: 700px;
             background-image:
-                url("https://cdn.prod.website-files.com/5fdb219862bb064897f59768/5fdc84d4d8534bcc1f517819_moon.avif"),
-                url("https://cdn.prod.website-files.com/5fdb219862bb064897f59768/5fdc8aea9ed5bb85e8f40ac4_sars_bg%402x.avif"),
+                url("./img/moon.avif"),
+                url("./img/sars_bg.avif"),
                 radial-gradient(circle at 50% 90%, #865ad6, #4a3896 45%, #322a7d 68%, #191c62);
             background-position: 50% 100%, 50% 0, 0 0;
             background-repeat: no-repeat, no-repeat, repeat;
@@ -379,7 +379,7 @@
             left: 5%;
             width: 50px;
             height: 50px;
-            background-image: url("https://cdn.prod.website-files.com/5fdb219862bb064897f59768/5fdc8757502ddba865aba1da_satelite.avif");
+            background-image: url("./img/satelite.avif");
             background-size: contain;
             background-repeat: no-repeat;
             animation: floatSlow 8s ease-in-out infinite;
@@ -393,7 +393,7 @@
             right: 8%;
             width: 100px;
             height: 100px;
-            background-image: url("https://cdn.prod.website-files.com/5fdb219862bb064897f59768/5fdc4dbb81e86caa59a7499c_earth.avif");
+            background-image: url("./img/earth.avif");
             background-size: contain;
             background-repeat: no-repeat;
             animation: floatSlow 10s ease-in-out infinite 1s;
@@ -557,6 +557,66 @@
             text-shadow: 0 0 10px var(--gold);
         }
 
+        .hero-star-ring::after {
+            content: '✧';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--gold);
+            font-size: 11px;
+            opacity: 0.6;
+            text-shadow: 0 0 8px var(--gold);
+        }
+
+        /* Puntos y rombos sobre el anillo interior */
+        .ring-dot {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-star-ring .ring-dot-left {
+            width: 6px;
+            height: 6px;
+            background: var(--violet);
+            box-shadow: 0 0 8px var(--violet);
+            top: 50%;
+            left: -4px;
+            transform: translateY(-50%);
+        }
+
+        .hero-star-ring .ring-dot-right {
+            width: 6px;
+            height: 6px;
+            background: var(--cyan);
+            box-shadow: 0 0 8px var(--cyan);
+            top: 50%;
+            right: -4px;
+            transform: translateY(-50%);
+        }
+
+        .ring-diamond {
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            background: var(--gold);
+            box-shadow: 0 0 8px var(--gold);
+            transform: rotate(45deg);
+            pointer-events: none;
+            opacity: 0.75;
+        }
+
+        .hero-star-ring .ring-diamond-tl {
+            top: 73px;
+            left: 73px;
+        }
+
+        .hero-star-ring .ring-diamond-br {
+            bottom: 73px;
+            right: 73px;
+        }
+
         .hero-star-ring-2 {
             position: absolute;
             top: 50%;
@@ -580,6 +640,72 @@
             color: var(--cyan);
             font-size: 12px;
             text-shadow: 0 0 10px var(--cyan);
+        }
+
+        .hero-star-ring-2::after {
+            content: '◆';
+            position: absolute;
+            top: -7px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--violet);
+            font-size: 10px;
+            opacity: 0.7;
+            text-shadow: 0 0 10px var(--violet);
+        }
+
+        /* Puntos y ticks sobre el anillo exterior */
+        .hero-star-ring-2 .ring-dot-left {
+            width: 5px;
+            height: 5px;
+            background: var(--gold);
+            box-shadow: 0 0 7px var(--gold);
+            top: 50%;
+            left: -3px;
+            transform: translateY(-50%);
+        }
+
+        .hero-star-ring-2 .ring-dot-right {
+            width: 5px;
+            height: 5px;
+            background: var(--violet);
+            box-shadow: 0 0 7px var(--violet);
+            top: 50%;
+            right: -3px;
+            transform: translateY(-50%);
+        }
+
+        .ring-tick {
+            position: absolute;
+            width: 10px;
+            height: 1.5px;
+            background: var(--cyan);
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .hero-star-ring-2 .ring-tick-tl {
+            top: 103px;
+            left: 103px;
+            transform: rotate(-45deg);
+        }
+
+        .hero-star-ring-2 .ring-tick-tr {
+            top: 103px;
+            right: 103px;
+            transform: rotate(45deg);
+        }
+
+        .hero-star-ring-2 .ring-tick-bl {
+            bottom: 103px;
+            left: 103px;
+            transform: rotate(45deg);
+        }
+
+        .hero-star-ring-2 .ring-tick-br {
+            bottom: 103px;
+            right: 103px;
+            transform: rotate(-45deg);
         }
 
         @keyframes spinRing {
@@ -1229,7 +1355,7 @@
                 height: 450px;
             }
         }
-        
+
         @media (min-width: 1024px) {
             .carousel-slide {
                 flex: 0 0 calc(33.333% - 13.333px);
@@ -1326,12 +1452,15 @@
                 width: 40px;
                 height: 40px;
             }
+
             .carousel-nav-btn.prev {
                 left: 12px;
             }
+
             .carousel-nav-btn.next {
                 right: 12px;
             }
+
             .carousel-track-wrapper {
                 mask-image: none;
                 -webkit-mask-image: none;
@@ -1392,14 +1521,36 @@
             animation: soundWave 1.2s ease-in-out infinite;
         }
 
-        .audio-bars .bar:nth-child(1) { height: 60%; animation-delay: 0.0s; }
-        .audio-bars .bar:nth-child(2) { height: 100%; animation-delay: 0.2s; }
-        .audio-bars .bar:nth-child(3) { height: 80%; animation-delay: 0.4s; }
-        .audio-bars .bar:nth-child(4) { height: 40%; animation-delay: 0.6s; }
+        .audio-bars .bar:nth-child(1) {
+            height: 60%;
+            animation-delay: 0.0s;
+        }
+
+        .audio-bars .bar:nth-child(2) {
+            height: 100%;
+            animation-delay: 0.2s;
+        }
+
+        .audio-bars .bar:nth-child(3) {
+            height: 80%;
+            animation-delay: 0.4s;
+        }
+
+        .audio-bars .bar:nth-child(4) {
+            height: 40%;
+            animation-delay: 0.6s;
+        }
 
         @keyframes soundWave {
-            0%, 100% { transform: scaleY(0.5); }
-            50% { transform: scaleY(1); }
+
+            0%,
+            100% {
+                transform: scaleY(0.5);
+            }
+
+            50% {
+                transform: scaleY(1);
+            }
         }
 
         .audio-paused .audio-bars {
@@ -1634,8 +1785,20 @@
         <div class="hero-earth" aria-hidden="true"></div>
 
         <!-- Decorative rings -->
-        <div class="hero-star-ring" aria-hidden="true"></div>
-        <div class="hero-star-ring-2" aria-hidden="true"></div>
+        <div class="hero-star-ring" aria-hidden="true">
+            <div class="ring-dot ring-dot-left"></div>
+            <div class="ring-dot ring-dot-right"></div>
+            <div class="ring-diamond ring-diamond-tl"></div>
+            <div class="ring-diamond ring-diamond-br"></div>
+        </div>
+        <div class="hero-star-ring-2" aria-hidden="true">
+            <div class="ring-dot ring-dot-left"></div>
+            <div class="ring-dot ring-dot-right"></div>
+            <div class="ring-tick ring-tick-tl"></div>
+            <div class="ring-tick ring-tick-tr"></div>
+            <div class="ring-tick ring-tick-bl"></div>
+            <div class="ring-tick ring-tick-br"></div>
+        </div>
 
         <!-- Glow backdrop -->
         <div class="hero-name-glow" aria-hidden="true"></div>
@@ -1692,12 +1855,13 @@
             <div class="mission-grid">
                 <div class="mission-param reveal reveal-delay-1">
                     <div class="param-icon">
+                        <!-- Cohete: Fecha de Lanzamiento -->
                         <svg viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="1.5" stroke-linecap="round"
                             stroke-linejoin="round">
-                            <rect x="3" y="4" width="18" height="18" rx="2" />
-                            <line x1="16" y1="2" x2="16" y2="6" />
-                            <line x1="8" y1="2" x2="8" y2="6" />
-                            <line x1="3" y1="10" x2="21" y2="10" />
+                            <path d="M12 2C12 2 7 6 7 13h10c0-7-5-11-5-11z" fill="rgba(124,58,237,0.2)" />
+                            <path d="M7 13v3l-2 2h14l-2-2v-3" />
+                            <path d="M10 17v2a2 2 0 004 0v-2" />
+                            <circle cx="12" cy="9" r="1.5" fill="#7c3aed" />
                         </svg>
                     </div>
                     <span class="param-label">Fecha de Lanzamiento</span>
@@ -1706,10 +1870,14 @@
 
                 <div class="mission-param reveal reveal-delay-2">
                     <div class="param-icon">
+                        <!-- Planeta con órbita: Hora de Inicio -->
                         <svg viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="1.5" stroke-linecap="round"
                             stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10" />
-                            <polyline points="12 6 12 12 16 14" />
+                            <circle cx="12" cy="12" r="4" fill="rgba(124,58,237,0.2)" />
+                            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#06b6d4" stroke-width="1" opacity="0.6" />
+                            <line x1="12" y1="8" x2="12" y2="12" stroke="#fff" stroke-width="1.5" />
+                            <line x1="12" y1="12" x2="15" y2="13.5" stroke="#f59e0b" stroke-width="1.5" />
+                            <circle cx="12" cy="12" r="1" fill="#7c3aed" />
                         </svg>
                     </div>
                     <span class="param-label">Hora de Inicio</span>
@@ -1718,10 +1886,13 @@
 
                 <div class="mission-param reveal reveal-delay-3">
                     <div class="param-icon">
+                        <!-- Saturno: Base de Operaciones -->
                         <svg viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="1.5" stroke-linecap="round"
                             stroke-linejoin="round">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                            <circle cx="12" cy="10" r="3" />
+                            <circle cx="12" cy="12" r="5" fill="rgba(124,58,237,0.2)" />
+                            <ellipse cx="12" cy="12" rx="9" ry="3.5" stroke="#06b6d4" stroke-width="1.2" opacity="0.7"
+                                transform="rotate(-20 12 12)" />
+                            <circle cx="9" cy="9" r="1" fill="rgba(245,158,11,0.5)" stroke="none" />
                         </svg>
                     </div>
                     <span class="param-label">Base de Operaciones</span>
@@ -1731,10 +1902,16 @@
 
                 <div class="mission-param reveal reveal-delay-4">
                     <div class="param-icon">
+                        <!-- Estrella dorada con estela: Temática -->
                         <svg viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="1.5" stroke-linecap="round"
                             stroke-linejoin="round">
-                            <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                            <circle cx="13" cy="6" r="3" fill="rgba(124,58,237,0.2)" />
+                            <circle cx="13" cy="6" r="1.2" fill="#7c3aed" stroke="none" />
+                            <line x1="2" y1="11" x2="10" y2="9" stroke="#06b6d4" stroke-width="1.2" opacity="0.8" />
+                            <line x1="2" y1="14" x2="8" y2="13" stroke="#06b6d4" stroke-width="0.8" opacity="0.5" />
+                            <line x1="2" y1="17" x2="6" y2="16.5" stroke="#06b6d4" stroke-width="0.6" opacity="0.3" />
+                            <polygon points="13,1 14.5,4.5 18,5 15.5,7.5 16,11 13,9 10,11 10.5,7.5 8,5 11.5,4.5"
+                                fill="rgba(245,158,11,0.15)" stroke="#f59e0b" stroke-width="1" />
                         </svg>
                     </div>
                     <span class="param-label">Temática</span>
@@ -1761,8 +1938,19 @@
                 <div class="protocol-item reveal reveal-delay-1"
                     style="border-color: rgba(6,182,212,0.25); background: rgba(6,182,212,0.05);">
                     <div class="protocol-num"
-                        style="color: var(--cyan); background: rgba(6,182,212,0.12); border-color: rgba(6,182,212,0.25); font-size: 1.4rem;">
-                        🩱</div>
+                        style="color: var(--cyan); background: rgba(6,182,212,0.12); border-color: rgba(6,182,212,0.25); width:38px; height:38px; padding:6px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" width="100%" height="100%">
+                            <circle cx="12" cy="6" r="4" fill="rgba(6,182,212,0.15)" />
+                            <circle cx="12" cy="6" r="2.2" fill="rgba(6,182,212,0.3)" stroke="#06b6d4"
+                                stroke-width="1" />
+                            <path d="M7 11h10v7a2 2 0 01-2 2H9a2 2 0 01-2-2v-7z" fill="rgba(6,182,212,0.1)" />
+                            <path d="M7 12l-2.5 1v4l2.5 1" />
+                            <path d="M17 12l2.5 1v4l-2.5 1" />
+                            <rect x="10" y="13" width="4" height="3" rx="0.5" stroke="#f59e0b" stroke-width="1"
+                                fill="rgba(245,158,11,0.1)" />
+                        </svg>
+                    </div>
                     <div class="protocol-text">
                         <strong>¡No olvides tu traje de baño!</strong>
                         Habrá actividades acuáticas — trae tu toalla interestelar lista para la misión.
@@ -1823,7 +2011,9 @@
 
         <div class="carousel-container reveal reveal-delay-1">
             <button class="carousel-nav-btn prev" aria-label="Anterior">
-                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                <svg viewBox="0 0 24 24">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
             </button>
 
             <div class="carousel-track-wrapper" id="carousel-track">
@@ -1848,7 +2038,9 @@
             </div>
 
             <button class="carousel-nav-btn next" aria-label="Siguiente">
-                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                <svg viewBox="0 0 24 24">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
             </button>
 
             <div class="carousel-indicators" id="carousel-indicators">
@@ -1905,7 +2097,9 @@
                 <span class="bar"></span>
                 <span class="bar"></span>
             </div>
-            <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+            </svg>
         </button>
     </div>
 
@@ -1946,8 +2140,23 @@
                 }));
             }
 
+            /* ── Meteoros ── */
+            let meteors = [];
+            function spawnMeteor() {
+                const angle = (Math.PI / 180) * (30 + Math.random() * 20);
+                const speed = 6 + Math.random() * 6;
+                const len = 120 + Math.random() * 160;
+                const startX = Math.random() * canvas.width;
+                const startY = Math.random() * canvas.height * 0.5;
+                meteors.push({ x: startX, y: startY, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, len, life: 1, hue: Math.random() > 0.5 ? '200,230,255' : '200,180,255' });
+                setTimeout(spawnMeteor, 3000 + Math.random() * 4000);
+            }
+            setTimeout(spawnMeteor, 1500);
+
             function draw(t) {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Estrellas
                 stars.forEach(s => {
                     const alpha = 0.3 + 0.7 * (0.5 + 0.5 * Math.sin(t * s.speed + s.phase));
                     ctx.beginPath();
@@ -1955,6 +2164,32 @@
                     ctx.fillStyle = `rgba(232,234,246,${alpha * s.a})`;
                     ctx.fill();
                 });
+
+                // Meteoros
+                meteors = meteors.filter(m => m.life > 0);
+                meteors.forEach(m => {
+                    const dist = Math.sqrt(m.vx * m.vx + m.vy * m.vy);
+                    const tailX = m.x - m.vx * (m.len / dist);
+                    const tailY = m.y - m.vy * (m.len / dist);
+                    const grad = ctx.createLinearGradient(tailX, tailY, m.x, m.y);
+                    grad.addColorStop(0, `rgba(${m.hue},0)`);
+                    grad.addColorStop(0.6, `rgba(${m.hue},${m.life * 0.4})`);
+                    grad.addColorStop(1, `rgba(255,255,255,${m.life * 0.9})`);
+                    ctx.beginPath();
+                    ctx.moveTo(tailX, tailY);
+                    ctx.lineTo(m.x, m.y);
+                    ctx.strokeStyle = grad;
+                    ctx.lineWidth = 1.5;
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.arc(m.x, m.y, 1.8, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255,255,255,${m.life})`;
+                    ctx.fill();
+                    m.x += m.vx;
+                    m.y += m.vy;
+                    m.life -= 0.018;
+                });
+
                 requestAnimationFrame(draw);
             }
 
@@ -2022,7 +2257,7 @@
                     clearInterval(shakeInterval);
                     btn.style.transform = 'scale(0)';
                     btn.style.transition = 'transform 0.3s ease-in';
-                    
+
                     const panelUI = document.querySelector('.launch-panel');
                     if (panelUI) {
                         panelUI.style.transition = 'transform 0.8s cubic-bezier(0.55, 0.085, 0.68, 0.53), opacity 0.6s ease-in';
@@ -2206,14 +2441,14 @@
         /* ──────────────────────────────────────────────
            5. CAROUSEL
         ────────────────────────────────────────────── */
-        (function() {
+        (function () {
             const track = document.getElementById('carousel-track');
             if (!track) return;
             const prevBtn = document.querySelector('.carousel-nav-btn.prev');
             const nextBtn = document.querySelector('.carousel-nav-btn.next');
             const indicatorsContainer = document.getElementById('carousel-indicators');
             const slides = track.querySelectorAll('.carousel-slide');
-            
+
             if (slides.length === 0) return;
 
             // Generar indicadores dinámicamente
@@ -2233,7 +2468,7 @@
                 const scrollLeft = track.scrollLeft;
                 const slideWidth = slides[0].offsetWidth + 20; // 20px gap
                 const index = Math.round(scrollLeft / slideWidth);
-                
+
                 indicators.forEach((dot, i) => {
                     dot.classList.toggle('active', i === index);
                 });
@@ -2265,10 +2500,10 @@
         /* ──────────────────────────────────────────────
            6. AUDIO CONTROLS
         ────────────────────────────────────────────── */
-        (function() {
+        (function () {
             const btn = document.getElementById('toggle-audio-btn');
             const audio = document.getElementById('bg-audio');
-            if(!btn || !audio) return;
+            if (!btn || !audio) return;
 
             btn.addEventListener('click', () => {
                 if (audio.paused) {
