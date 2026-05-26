@@ -1259,19 +1259,17 @@
             background: var(--glass-border);
             margin: 0 24px;
             z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .hud-divider::before {
-            content: '';
+        .hud-divider svg {
             position: absolute;
+            top: 50%;
             left: 50%;
-            top: -3px;
-            transform: translateX(-50%);
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--violet);
-            box-shadow: 0 0 10px var(--violet);
+            transform: translate(-50%, -50%);
+            display: block;
         }
 
         /* ===================================================
@@ -1851,7 +1849,15 @@
         </div>
     </section>
 
-    <div class="hud-divider"></div>
+    <!-- Saturno -->
+    <div class="hud-divider">
+        <svg width="28" height="20" viewBox="0 0 28 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="14" cy="10" r="6" fill="rgba(124,58,237,0.25)" stroke="#7c3aed" stroke-width="1" />
+            <ellipse cx="14" cy="10" rx="13" ry="4.5" stroke="#a78bfa" stroke-width="1" opacity="0.7"
+                transform="rotate(-15 14 10)" />
+            <circle cx="11.5" cy="7.5" r="1.2" fill="rgba(245,158,11,0.4)" stroke="none" />
+        </svg>
+    </div>
 
     <!-- ========================================================
      DETALLES DE LA MISIÓN
@@ -1933,7 +1939,14 @@
         </div>
     </section>
 
-    <div class="hud-divider"></div>
+    <!-- Marte -->
+    <div class="hud-divider">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="7" fill="rgba(239,68,68,0.2)" stroke="#f87171" stroke-width="1" />
+            <path d="M5 13 Q8 10 10 12 Q12 14 15 11" stroke="rgba(239,68,68,0.5)" stroke-width="1" fill="none" />
+            <circle cx="7" cy="8" r="1.5" fill="rgba(239,68,68,0.3)" stroke="none" />
+        </svg>
+    </div>
 
     <!-- ========================================================
      PROTOCOLO DE ABORDO
@@ -1972,7 +1985,15 @@
         </div>
     </section>
 
-    <div class="hud-divider"></div>
+    <!-- Luna -->
+    <div class="hud-divider">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 3.5A7 7 0 1 0 16.5 13 5 5 0 0 1 13 3.5Z" fill="rgba(232,234,246,0.15)" stroke="#e8eaf6"
+                stroke-width="1" stroke-linejoin="round" />
+            <circle cx="8" cy="9" r="1.2" fill="rgba(232,234,246,0.2)" stroke="none" />
+            <circle cx="11" cy="13" r="0.8" fill="rgba(232,234,246,0.15)" stroke="none" />
+        </svg>
+    </div>
 
     <!-- ========================================================
      UBICACIÓN
@@ -2006,7 +2027,16 @@
         </div>
     </section>
 
-    <div class="hud-divider"></div>
+    <!-- Júpiter -->
+    <div class="hud-divider">
+        <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="12" cy="10" rx="10" ry="8" fill="rgba(245,158,11,0.15)" stroke="#f59e0b" stroke-width="1" />
+            <path d="M2.5 8.5 Q7 7 12 8.5 Q17 10 21.5 8.5" stroke="rgba(245,158,11,0.5)" stroke-width="1" fill="none" />
+            <path d="M2 11 Q7 12.5 12 11 Q17 9.5 22 11" stroke="rgba(245,158,11,0.35)" stroke-width="0.8" fill="none" />
+            <ellipse cx="8" cy="11.5" rx="2.5" ry="1.5" fill="rgba(239,68,68,0.3)" stroke="rgba(239,68,68,0.5)"
+                stroke-width="0.7" />
+        </svg>
+    </div>
 
     <!-- ========================================================
      GALERÍA ESTELAR
@@ -2060,7 +2090,15 @@
         </div>
     </section>
 
-    <div class="hud-divider"></div>
+    <!-- Neptuno -->
+    <div class="hud-divider">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="7" fill="rgba(6,182,212,0.15)" stroke="#06b6d4" stroke-width="1" />
+            <path d="M3.5 9.5 Q10 7 16.5 9.5" stroke="rgba(6,182,212,0.45)" stroke-width="0.9" fill="none" />
+            <path d="M4 12 Q10 14 16 12" stroke="rgba(6,182,212,0.3)" stroke-width="0.7" fill="none" />
+            <circle cx="10" cy="10" r="2.5" fill="rgba(6,182,212,0.3)" stroke="#06b6d4" stroke-width="0.7" />
+        </svg>
+    </div>
 
     <!-- ========================================================
      CONFIRMACIÓN
