@@ -970,6 +970,269 @@
         }
 
         /* ===================================================
+           ── CUENTA REGRESIVA ──
+        =================================================== */
+        #countdown {
+            padding: 80px 0 100px;
+        }
+
+        .countdown-heading {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.4rem, 4vw, 2.2rem);
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .countdown-intro {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 52px;
+        }
+
+        /* Outer HUD frame */
+        .countdown-hud {
+            position: relative;
+            background: rgba(3, 2, 13, 0.7);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 24px;
+            padding: clamp(36px, 5vw, 60px) clamp(20px, 5vw, 56px);
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+            box-shadow:
+                0 0 80px rgba(124, 58, 237, 0.12),
+                inset 0 0 60px rgba(3, 2, 13, 0.8),
+                0 0 0 1px rgba(6, 182, 212, 0.08);
+        }
+
+        /* Top gradient bar */
+        .countdown-hud::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, var(--violet) 30%, var(--cyan) 70%, transparent 100%);
+        }
+
+        /* Scan line sweep */
+        .countdown-hud::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            right: 0;
+            height: 40%;
+            background: linear-gradient(180deg, transparent 0%, rgba(6, 182, 212, 0.03) 50%, transparent 100%);
+            pointer-events: none;
+            animation: scanLine 5s linear infinite;
+        }
+
+        @keyframes scanLine {
+            0% { top: -40%; }
+            100% { top: 110%; }
+        }
+
+        /* T-minus label */
+        .countdown-tminus {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 6px;
+            color: var(--gold);
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 32px;
+            text-shadow: 0 0 15px rgba(245, 158, 11, 0.6);
+        }
+
+        /* Grid of digits */
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .countdown-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Digit block */
+        .countdown-digit-block {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1;
+            max-width: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        /* Glowing corner brackets */
+        .countdown-digit-block::before,
+        .countdown-digit-block::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-color: var(--cyan);
+            border-style: solid;
+            opacity: 0.6;
+        }
+
+        .countdown-digit-block::before {
+            top: 8px;
+            left: 8px;
+            border-width: 1.5px 0 0 1.5px;
+            border-radius: 3px 0 0 0;
+        }
+
+        .countdown-digit-block::after {
+            bottom: 8px;
+            right: 8px;
+            border-width: 0 1.5px 1.5px 0;
+            border-radius: 0 0 3px 0;
+        }
+
+        .countdown-digit {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 6vw, 3.8rem);
+            font-weight: 900;
+            color: #fff;
+            line-height: 1;
+            letter-spacing: -2px;
+            text-shadow:
+                0 0 20px rgba(255, 255, 255, 0.9),
+                0 0 50px rgba(124, 58, 237, 0.7),
+                0 0 100px rgba(124, 58, 237, 0.4);
+            transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.15s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .countdown-digit.flip {
+            transform: translateY(-6px) scale(1.08);
+            opacity: 0.5;
+        }
+
+        /* Horizontal center divider line inside block */
+        .digit-separator {
+            position: absolute;
+            left: 8%;
+            right: 8%;
+            top: 50%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.25), transparent);
+            pointer-events: none;
+        }
+
+        /* Inner glow pulse behind digit */
+        .digit-glow {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(124, 58, 237, 0.15) 0%, transparent 70%);
+            animation: digitGlowPulse 2.5s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes digitGlowPulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .countdown-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--cyan);
+            opacity: 0.8;
+        }
+
+        /* Colon separators between units */
+        .countdown-colon {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2.8rem);
+            font-weight: 900;
+            color: var(--violet);
+            opacity: 0.6;
+            align-self: center;
+            padding-bottom: 28px; /* offset for label height */
+            animation: colonBlink 1s ease-in-out infinite;
+        }
+
+        @keyframes colonBlink {
+            0%, 49% { opacity: 0.6; }
+            50%, 100% { opacity: 0.15; }
+        }
+
+        /* Bottom status bar */
+        .countdown-status {
+            margin-top: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+            letter-spacing: 3px;
+            color: var(--text-muted);
+        }
+
+        .countdown-status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 8px #22c55e;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        /* Arrived state */
+        .countdown-arrived {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .countdown-arrived-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.4rem, 5vw, 2.4rem);
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 0 40px rgba(245, 158, 11, 0.8);
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .countdown-grid {
+                gap: 8px;
+            }
+
+            .countdown-digit-block {
+                border-radius: 12px;
+            }
+
+            .countdown-colon {
+                font-size: 1.2rem;
+            }
+
+            .countdown-label {
+                font-size: 7px;
+                letter-spacing: 1.5px;
+            }
+        }
+
+        /* ===================================================
            ── PROTOCOLO DE ABORDO ──
         =================================================== */
         #protocolo {
@@ -1208,24 +1471,6 @@
             font-size: 0.8rem;
             color: var(--text-muted);
             letter-spacing: 1px;
-        }
-
-        /* ===================================================
-           ── FOOTER ──
-        =================================================== */
-        footer {
-            border-top: 1px solid var(--glass-border);
-            padding: 36px 24px;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .footer-text {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 10px;
-            letter-spacing: 3px;
-            color: var(--text-muted);
         }
 
         /* ===================================================
@@ -1606,6 +1851,7 @@
             }
 
             #detalles,
+            #countdown,
             #protocolo,
             #ubicacion,
             #confirmar {
@@ -1695,6 +1941,7 @@
             }
 
             #detalles,
+            #countdown,
             #protocolo,
             #ubicacion,
             #confirmar {
@@ -1912,6 +2159,80 @@
         </div>
     </section>
 
+    <!-- Saturno (divisor cuenta regresiva) -->
+    <div class="hud-divider">
+        <svg width="28" height="20" viewBox="0 0 28 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="14" cy="10" r="5" fill="rgba(245,158,11,0.2)" stroke="#f59e0b" stroke-width="1" />
+            <ellipse cx="14" cy="10" rx="12" ry="4" stroke="#f59e0b" stroke-width="0.9" opacity="0.6" transform="rotate(-12 14 10)" />
+            <circle cx="11.5" cy="7.5" r="1" fill="rgba(245,158,11,0.4)" stroke="none" />
+        </svg>
+    </div>
+
+    <!-- ========================================================
+     CUENTA REGRESIVA
+======================================================== -->
+    <section id="countdown" aria-label="Cuenta regresiva al evento">
+        <div class="section-inner">
+            <div class="reveal">
+                <div class="section-tag" style="color:var(--gold);">Cuenta Regresiva</div>
+                <h2 class="countdown-heading">T — Despegue</h2>
+                <p class="countdown-intro">Tiempo restante para que la misión entre en órbita</p>
+            </div>
+
+            <div class="countdown-hud reveal reveal-delay-1">
+                <div class="countdown-tminus">⬡ T-MINUS ⬡</div>
+
+                <div class="countdown-grid" id="countdown-grid">
+                    <!-- Días -->
+                    <div class="countdown-unit">
+                        <div class="countdown-digit-block">
+                            <div class="digit-glow"></div>
+                            <div class="digit-separator"></div>
+                            <span class="countdown-digit" id="cd-days">--</span>
+                        </div>
+                        <span class="countdown-label">Días</span>
+                    </div>
+
+                    <!-- Horas -->
+                    <div class="countdown-unit">
+                        <div class="countdown-digit-block">
+                            <div class="digit-glow"></div>
+                            <div class="digit-separator"></div>
+                            <span class="countdown-digit" id="cd-hours">--</span>
+                        </div>
+                        <span class="countdown-label">Horas</span>
+                    </div>
+
+                    <!-- Minutos -->
+                    <div class="countdown-unit">
+                        <div class="countdown-digit-block">
+                            <div class="digit-glow"></div>
+                            <div class="digit-separator"></div>
+                            <span class="countdown-digit" id="cd-mins">--</span>
+                        </div>
+                        <span class="countdown-label">Minutos</span>
+                    </div>
+
+                    <!-- Segundos -->
+                    <div class="countdown-unit">
+                        <div class="countdown-digit-block" style="border-color: rgba(6,182,212,0.3);">
+                            <div class="digit-glow" style="background: radial-gradient(ellipse at center, rgba(6,182,212,0.18) 0%, transparent 70%);"></div>
+                            <div class="digit-separator"></div>
+                            <span class="countdown-digit" id="cd-secs" style="text-shadow: 0 0 20px rgba(255,255,255,0.9), 0 0 50px rgba(6,182,212,0.8), 0 0 100px rgba(6,182,212,0.5);">--</span>
+                        </div>
+                        <span class="countdown-label" style="color:var(--cyan);">Segundos</span>
+                    </div>
+                </div>
+
+                <div class="countdown-status">
+                    <div class="countdown-status-dot"></div>
+                    <span id="countdown-status-text">SISTEMA DE NAVEGACIÓN ACTIVO</span>
+                    <div class="countdown-status-dot"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Marte -->
     <div class="hud-divider">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2124,13 +2445,6 @@
             </svg>
         </button>
     </div>
-
-    <!-- ========================================================
-     FOOTER
-======================================================== -->
-    <footer>
-        <p class="footer-text">FARID GABRIEL &nbsp;·&nbsp; PRIMER AÑO DE ÓRBITA &nbsp;·&nbsp; 2026</p>
-    </footer>
 
     <!-- ========================================================
      JAVASCRIPT
@@ -2558,6 +2872,88 @@
                     btn.classList.add('audio-paused');
                 }
             });
+        })();
+
+        /* ──────────────────────────────────────────────
+           7. COUNTDOWN TIMER
+        ────────────────────────────────────────────── */
+        (function () {
+            // Fecha objetivo: Sábado 13 de Junio 2026 a las 15:00 hora local
+            const TARGET = new Date('2026-06-13T15:00:00');
+
+            const elDays = document.getElementById('cd-days');
+            const elHours = document.getElementById('cd-hours');
+            const elMins = document.getElementById('cd-mins');
+            const elSecs = document.getElementById('cd-secs');
+            const statusText = document.getElementById('countdown-status-text');
+            const grid = document.getElementById('countdown-grid');
+
+            if (!elDays) return;
+
+            // Previous values to detect changes and trigger flip animation
+            let prevVals = { d: -1, h: -1, m: -1, s: -1 };
+
+            function pad(n) {
+                return String(n).padStart(2, '0');
+            }
+
+            function flipDigit(el) {
+                el.classList.remove('flip');
+                // Force reflow to restart animation
+                void el.offsetWidth;
+                el.classList.add('flip');
+                setTimeout(() => el.classList.remove('flip'), 200);
+            }
+
+            function setDigit(el, val, key) {
+                const padded = pad(val);
+                if (prevVals[key] !== val) {
+                    flipDigit(el);
+                    prevVals[key] = val;
+                }
+                el.textContent = padded;
+            }
+
+            function tick() {
+                const now = new Date();
+                const diff = TARGET - now;
+
+                if (diff <= 0) {
+                    // Event has arrived or passed
+                    if (grid) {
+                        grid.innerHTML = `
+                            <div class="countdown-arrived" style="grid-column: 1 / -1;">
+                                <div class="countdown-arrived-title">🚀 ¡La misión ha comenzado! 🚀</div>
+                            </div>`;
+                    }
+                    if (statusText) statusText.textContent = '¡DESPEGUE CONFIRMADO — EN ÓRBITA!';
+                    return; // stop ticking
+                }
+
+                const totalSecs = Math.floor(diff / 1000);
+                const days  = Math.floor(totalSecs / 86400);
+                const hours = Math.floor((totalSecs % 86400) / 3600);
+                const mins  = Math.floor((totalSecs % 3600) / 60);
+                const secs  = totalSecs % 60;
+
+                setDigit(elDays,  days,  'd');
+                setDigit(elHours, hours, 'h');
+                setDigit(elMins,  mins,  'm');
+                setDigit(elSecs,  secs,  's');
+
+                // Dynamic status message
+                if (days === 0 && hours === 0) {
+                    if (statusText) statusText.textContent = '¡DESPEGUE INMINENTE — PREPARAR MOTORES!';
+                } else if (days <= 3) {
+                    if (statusText) statusText.textContent = '¡CUENTA REGRESIVA FINAL — MISIÓN PRÓXIMA!';
+                } else {
+                    if (statusText) statusText.textContent = 'SISTEMA DE NAVEGACIÓN ACTIVO';
+                }
+
+                setTimeout(tick, 1000);
+            }
+
+            tick();
         })();
     </script>
 </body>
